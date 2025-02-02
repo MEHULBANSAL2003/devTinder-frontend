@@ -159,7 +159,7 @@ const Login = () => {
           <div className="font-semibold mt-4 flex justify-center">
             <p className="mx-8">
               Don't have an account?
-              <Link to="/signup" className="text-slate-200 mx-2">
+              <Link to="/signup" className="text-slate-200 mx-1">
                 Signup
               </Link>
             </p>
