@@ -13,7 +13,7 @@ const Home = () => {
       <h1 className="text-6xl font-extrabold text-gray-800">
         Dev<span className="text-indigo-600">Tinder</span>
       </h1>
-      <p className="mb-6 mt-1 text-gray-800 text-xl font-serif">"Where developers connect, collaborate, and create the future together." </p>
+      <p className="mb-4 mt-3 text-center text-gray-800 text-xl font-serif">"Where developers connect, collaborate, and create the future together." </p>
       <button
         onClick={handleCreateAccount}
         className="bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-medium px-8 py-3 rounded-full shadow-lg transition-all"
