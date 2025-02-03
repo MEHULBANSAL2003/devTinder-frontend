@@ -1,1 +1,4 @@
-export const BASE_URL="http://13.233.13.149/api";
+export const BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:7777"
+    : "https://devtinder.happyforever.com/api";
