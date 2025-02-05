@@ -58,6 +58,9 @@ const Connections = () => {
         setLoading(false);
       }
     } catch (err) {
+    
+    }
+    finally{
       setLoading(false);
     }
   };

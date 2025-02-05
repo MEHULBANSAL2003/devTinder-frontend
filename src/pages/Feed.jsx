@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import UserFeedCard from "../components/UserFeedCard";
 import axios from "axios";
 import Loader from "../components/Loader";
@@ -12,14 +12,56 @@ const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredConnection, setFilteredConnection] = useState(null);
   const navigate = useNavigate();
+  const debounceTimeout = useRef(null);
 
   const handleKeyUpSearch=()=>{
+    clearTimeout(debounceTimeout.current);
+
+    debounceTimeout.current = setTimeout(async () => {
+      const url = `${
+        BASE_URL
+      }/user/feed?search=${encodeURIComponent(searchText)}`;
+
+      try {
+        const response = await axios({
+          method: "get",
+          url: url,
+          withCredentials: true,
+        });
+        console.log(response);
+
+        if (response.data.result === "success") {
+          setFilteredConnection(response.data.data);
+        }
+      } catch (err) {}
+    }, 500);
 
   }
 
-  const handleSearch=()=>{
+  const handleSearch = async () => {
+    setLoading(true);
+    const url = `${
+      BASE_URL
+    }/user/feed?search=${encodeURIComponent(searchText)}`;
+
+    try {
+      const response = await axios({
+        method: "get",
+        url: url,
+        withCredentials: true,
+      });
+
+      if (response.data.result === "success") {
+        setFilteredConnection(response.data.data);
+        setLoading(false);
+      }
+    } catch (err) {
     
-  }
+    }
+    finally{
+      setLoading(false);
+    }
+  };
 
   const fetchUserFeedData = async () => {
     const url = `${BASE_URL}/user/feed`;
@@ -32,6 +74,7 @@ const Feed = () => {
 
       if (response.data.result === "success") {
         setUserData(response.data.data);
+        setFilteredConnection(response.data.data)
         setLoading(false);
       }
     } catch (err) {
@@ -85,7 +128,7 @@ const Feed = () => {
   }
 
   const handleActionComplete = (userId) => {
-    setUserData((prevUserData) =>
+    setFilteredConnection((prevUserData) =>
       prevUserData.filter((user) => user._id !== userId)
     );
   };
@@ -126,9 +169,15 @@ const Feed = () => {
         >
           Search
         </button>
+       
       </div>
-      {userData &&
-        userData.map((user) => (
+      {filteredConnection && filteredConnection.length === 0 && (
+            <h1 className="text-white text-2xl font-bold text-center mt-20 sm:mt-40 mx-4 sm:mx-16">
+              No such user found..!!
+            </h1>
+          )}
+      {filteredConnection &&
+        filteredConnection.map((user) => (
           <div key={user._id} className="w-full max-w-md">
             <UserFeedCard user={user} onActionComplete={handleActionComplete} />
           </div>
