@@ -97,20 +97,16 @@ const Feed = () => {
   }
 
   return (
-    <div className="flex justify-center items-center mt-16">
-      <div className="flex overflow-x-scroll  snap-x snap-mandatory w-full max-w-3xl space-x-4 p-4">
-        {userData &&
-          userData.map((user) => (
-            <div key={user._id} className="snap-center shrink-0 w-full">
-              <UserFeedCard
-                user={user}
-                onActionComplete={handleActionComplete}
-              />
-            </div>
-          ))}
-      </div>
+    <div className="flex flex-col items-center mt-16 space-y-6">
+      {userData &&
+        userData.map((user) => (
+          <div key={user._id} className="w-full flex justify-center">
+            <UserFeedCard user={user} onActionComplete={handleActionComplete} />
+          </div>
+        ))}
     </div>
   );
+  
 };
 
 export default Feed;

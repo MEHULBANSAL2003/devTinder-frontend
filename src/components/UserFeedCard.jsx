@@ -69,65 +69,56 @@ const UserFeedCard = ({ user, onActionComplete }) => {
   };
 
   return (
-    <div className="max-w-sm w-full mx-auto bg-slate-800 my-3 border-gray-200 rounded-lg shadow-md p-5 flex flex-col items-center">
-      <img
-        src={user.photoUrl}
-        alt={`${user.firstName} ${user.lastName}`}
-        className="w-24 h-24 rounded-full object-cover border-2 border-indigo-500"
-      />
-
-      <h2 className="mt-4 text-xl font-semibold text-gray-100">
-        {`${user.firstName} ${user.lastName}`}
-      </h2>
-      <h2>{user.userName}</h2>
-
-      <p className="mt-2 text-gray-400 text-center">{user.about}</p>
-
-      <div className="flex flex-wrap justify-center gap-2 mt-4">
-        {user.skills.length > 0 ? (
-          user.skills.map((skill, index) => (
-            <span
-              key={index}
-              className="bg-indigo-100 text-indigo-600 text-xs font-medium px-3 py-1 rounded-lg"
-            >
-              {skill}
-            </span>
-          ))
-        ) : (
-          <span className="text-gray-500 text-sm"></span>
-        )}
+    <div className="w-full max-w-md mx-auto bg-slate-800 my-3 border-gray-200 rounded-lg shadow-md p-5 flex flex-col sm:flex-row items-center sm:justify-between">
+      
+      {/* Profile Section */}
+      <div className="flex items-center w-full sm:w-auto">
+        <img
+          src={user.photoUrl}
+          alt={`${user.firstName} ${user.lastName}`}
+          className="w-16 h-16 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-indigo-500"
+        />
+  
+        <div className="ml-3 sm:ml-4">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-100">
+            {`${user.firstName} ${user.lastName}`}
+          </h2>
+          <h3 className="text-gray-400 text-sm">{user.userName}</h3>
+        </div>
       </div>
-      {reqBtn === "Send Request" && (
-        <div className="flex gap-4 mt-5">
-          <button
-            onClick={handleSendRequest}
-            className="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition"
-          >
-            {reqBtn}
-          </button>
-          {reqBtn === "Send Request" && (
+  
+      {/* Buttons - Stack on mobile, inline on larger screens */}
+      <div className="mt-3 sm:mt-0 flex gap-2 w-full sm:w-auto justify-center sm:justify-end">
+        {reqBtn === "Send Request" && (
+          <>
+            <button
+              onClick={handleSendRequest}
+              className="px-3 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition w-1/2 sm:w-auto"
+            >
+              {reqBtn}
+            </button>
             <button
               onClick={handleIgnore}
-              className="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition"
+              className="px-3 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition w-1/2 sm:w-auto"
             >
               Ignore
             </button>
-          )}
-        </div>
-      )}
-
-      {reqBtn === "Cancel Request" && (
-        <div className="flex gap-4 mt-5">
+          </>
+        )}
+  
+        {reqBtn === "Cancel Request" && (
           <button
             onClick={handleCancelRequest}
-            className="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition"
+            className="px-3 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition w-full sm:w-auto"
           >
             {reqBtn}
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
+  
+  
 };
 
 export default UserFeedCard;
