@@ -9,7 +9,17 @@ import { BASE_URL } from "../utils/Constants";
 const Feed = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [searchText, setSearchText] = useState("");
+  const [filteredConnection, setFilteredConnection] = useState(null);
   const navigate = useNavigate();
+
+  const handleKeyUpSearch=()=>{
+
+  }
+
+  const handleSearch=()=>{
+    
+  }
 
   const fetchUserFeedData = async () => {
     const url = `${BASE_URL}/user/feed`;
@@ -84,23 +94,42 @@ const Feed = () => {
 
   if (userData && userData?.length === 0) {
     return (
-      <div>
-      <div className="text-2xl md:text-4xl font-semibold mt-64 mx-[20%] md:mt-48 md:mx-[38%] text-white">That's all for now..!!</div>
-      <button
+      <div className="flex flex-col items-center mt-32">
+        <div className="text-2xl md:text-4xl font-semibold text-white text-center">
+          That's all for now..!!
+        </div>
+        <button
           onClick={handleExplorePosts}
-            className="bg-green-500 hover:bg-green-600 px-6 py-3  mt-6 mx-[28%] md:mx-[44%] rounded-lg text-white text-lg font-semibold shadow-lg"
-          >
-            Explore Posts
-          </button>
+          className="bg-green-500 hover:bg-green-600 px-6 py-3 mt-6 rounded-lg text-white text-lg font-semibold shadow-lg"
+        >
+          Explore Posts
+        </button>
       </div>
     );
   }
-
+  
   return (
-    <div className="flex flex-col items-center mt-16 space-y-6">
+    <div className="flex flex-col items-center mt-8 space-y-6">
+    
+      <div className="w-full px-4 sm:px-0 flex flex-col sm:flex-row justify-center items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search connections by name or username"
+          className="w-full sm:w-3/4 lg:w-1/2 px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-3 sm:mb-0 sm:mr-4"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyUp={handleKeyUpSearch}
+        />
+        <button
+          onClick={handleSearch}
+          className="w-full sm:w-auto px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-green-200"
+        >
+          Search
+        </button>
+      </div>
       {userData &&
         userData.map((user) => (
-          <div key={user._id} className="w-full flex justify-center">
+          <div key={user._id} className="w-full max-w-md">
             <UserFeedCard user={user} onActionComplete={handleActionComplete} />
           </div>
         ))}
