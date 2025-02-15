@@ -15,12 +15,14 @@ const ViewProfile = () => {
 
   const handleViewProfile = async () => {
     const url = `${BASE_URL}/profile/view/${id}`;
+ 
     try {
       const response = await axios({
         method: "get",
         url: url,
         withCredentials: true,
       });
+      console.log(response);
 
       if (response.data.result === "success") {
         setProfile(response.data.data);
@@ -98,6 +100,8 @@ const ViewProfile = () => {
       </div>
     );
   }
+
+  //console.log(profile);
 
   return (
     <div className=" justify-center items-center min-h-screen bg-gradient-to-r from-blue-100 to-indigo-200">

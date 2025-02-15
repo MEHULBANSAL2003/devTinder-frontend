@@ -55,9 +55,7 @@ const RequestCard = ({ user, onActionComplete }) => {
     }
   };
 
-  const handleViewProfile = async () => {
-    navigate(`/profile/${fromUserId._id}`);
-  };
+
 
   return (
     <div className="max-w-md mx-auto bg-base-300 border border-gray-200 rounded-lg shadow-md p-6 my-4">
@@ -79,12 +77,7 @@ const RequestCard = ({ user, onActionComplete }) => {
             </p>
           </div>
         </div>
-        <button
-          onClick={handleViewProfile}
-          className="px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition"
-        >
-          View Profile
-        </button>
+        
       </div>
       <div className="mt-7 mx-20  flex">
         <button

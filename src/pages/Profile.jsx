@@ -81,7 +81,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUser();
-  }, [user]);
+  }, []);
 
   const handleEditProfile = () => {
     navigate("/profile/edit");
@@ -192,6 +192,7 @@ const Profile = () => {
   if (loading) {
     return <Loader />;
   }
+  console.log(user);
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-blue-100 to-indigo-200 p-6">
